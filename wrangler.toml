@@ -1,5 +1,9 @@
-# Cloudflare Workers 配置，线上已由deploy.yml接管，这里仅供本地测试
+# Cloudflare deployment for leason-lyx/CF-Server-Monitor
 name = "cf-server-monitor"
+account_id = "cf35718d5b28b5d5d98ad30267f8e6e2"
+workers_dev = false
+preview_urls = false
+routes = [{ pattern = "monitor-next.040803.xyz", custom_domain = true }, { pattern = "probe.040803.xyz", custom_domain = true }]
 main = "src/index.js"
 compatibility_date = "2024-12-01"
 compatibility_flags = ["nodejs_compat"]
@@ -19,7 +23,8 @@ binding = "ASSETS"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "server-monitor-db"
+database_name = "cf-server-monitor-db"
+database_id = "079599a7-9b30-4457-8b05-9995fa52c237"
 
 # Durable Objects：实时指标广播中心
 # 注意：首次部署前需要执行 `wrangler durable-object create MetricsBroadcaster --class MetricsBroadcaster`
