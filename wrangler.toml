@@ -3,7 +3,7 @@ name = "cf-server-monitor"
 account_id = "cf35718d5b28b5d5d98ad30267f8e6e2"
 workers_dev = false
 preview_urls = false
-routes = [{ pattern = "monitor-next.040803.xyz", custom_domain = true }, { pattern = "probe.040803.xyz", custom_domain = true }]
+routes = [{ pattern = "monitor.040803.xyz", custom_domain = true }, { pattern = "monitor-next.040803.xyz", custom_domain = true }, { pattern = "probe.040803.xyz", custom_domain = true }]
 main = "src/index.js"
 compatibility_date = "2024-12-01"
 compatibility_flags = ["nodejs_compat"]
