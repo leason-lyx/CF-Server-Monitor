@@ -1,0 +1,90 @@
+diff --git a/src/components/PingChart.vue b/src/components/PingChart.vue
+index 0ee373e..cd657d1 100644
+--- a/src/components/PingChart.vue
++++ b/src/components/PingChart.vue
+@@ -521,6 +521,7 @@ const PING_TASK_KEYS: Record<number, string> = {
+   6: 'node_2',
+   7: 'node_3',
+   8: 'node_4',
++  9: 'node_5',
+ }
+ 
+ function appendRealtimePing(node: NonNullable<typeof nodeInfo.value>): void {
+diff --git a/src/utils/api.ts b/src/utils/api.ts
+index 5c13b57..23b9e35 100644
+--- a/src/utils/api.ts
++++ b/src/utils/api.ts
+@@ -114,6 +114,7 @@ export interface SiteConfig {
+   node_2_name?: string
+   node_3_name?: string
+   node_4_name?: string
++  node_5_name?: string
+ }
+ 
+ export interface SysConfig {
+@@ -174,10 +175,12 @@ export interface CfServer {
+   ping_node_2?: number | string | null
+   ping_node_3?: number | string | null
+   ping_node_4?: number | string | null
++  ping_node_5?: number | string | null
+   loss_node_1?: number | string | null
+   loss_node_2?: number | string | null
+   loss_node_3?: number | string | null
+   loss_node_4?: number | string | null
++  loss_node_5?: number | string | null
+   /** 一小时延迟窗口（旧→新，桶数与区间由 /api/config 的 latency_window 决定），仅 /api/servers 列表返回 */
+   ping?: LatencyWindowPoint[]
+   loss?: LatencyWindowPoint[]
+@@ -324,7 +327,7 @@ const sourceRegistry = new Map<string, ServerSource>()
+ let cachedSiteConfigs: SiteConfig[] = []
+ 
+ type PingProviderKey = 'ct' | 'cu' | 'cm' | 'bd'
+-type PingNodeKey = 'node_1' | 'node_2' | 'node_3' | 'node_4'
++type PingNodeKey = 'node_1' | 'node_2' | 'node_3' | 'node_4' | 'node_5'
+ type PingTaskKey = PingProviderKey | PingNodeKey
+ 
+ const DEFAULT_PING_TASK_NAMES: Record<PingTaskKey, string> = {
+@@ -336,6 +339,7 @@ const DEFAULT_PING_TASK_NAMES: Record<PingTaskKey, string> = {
+   node_2: '节点 2',
+   node_3: '节点 3',
+   node_4: '节点 4',
++  node_5: '节点 5',
+ }
+ 
+ /** Ping 显示名称，由 /api/config 的自定义名称覆盖，未配置时为默认值 */
+@@ -355,6 +359,7 @@ function applyCustomPingNames(config?: SiteConfig): void {
+     node_2: config.node_2_name?.trim() || DEFAULT_PING_TASK_NAMES.node_2,
+     node_3: config.node_3_name?.trim() || DEFAULT_PING_TASK_NAMES.node_3,
+     node_4: config.node_4_name?.trim() || DEFAULT_PING_TASK_NAMES.node_4,
++    node_5: config.node_5_name?.trim() || DEFAULT_PING_TASK_NAMES.node_5,
+   }
+ }
+ 
+@@ -892,6 +897,7 @@ const PING_TASKS: PingTaskDefinition[] = [
+   { id: 6, key: 'node_2', latencyField: 'ping_node_2', lossField: 'loss_node_2' },
+   { id: 7, key: 'node_3', latencyField: 'ping_node_3', lossField: 'loss_node_3' },
+   { id: 8, key: 'node_4', latencyField: 'ping_node_4', lossField: 'loss_node_4' },
++  { id: 9, key: 'node_5', latencyField: 'ping_node_5', lossField: 'loss_node_5' },
+ ]
+ 
+ /**
+diff --git a/src/utils/init.ts b/src/utils/init.ts
+index bb929ef..124e656 100644
+--- a/src/utils/init.ts
++++ b/src/utils/init.ts
+@@ -305,6 +305,7 @@ class InitManager {
+         'ping_node_2',
+         'ping_node_3',
+         'ping_node_4',
++        'ping_node_5',
+         'loss_ct',
+         'loss_cu',
+         'loss_cm',
+@@ -313,6 +314,7 @@ class InitManager {
+         'loss_node_2',
+         'loss_node_3',
+         'loss_node_4',
++        'loss_node_5',
+       )) {
+         status.ping = current.ping
+       }
