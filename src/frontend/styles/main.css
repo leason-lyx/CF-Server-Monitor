@@ -4157,6 +4157,10 @@ body.server-row-drag-active * {
     color: #ffa657;
 }
 
+.ping-node-5 {
+    color: #f778ba;
+}
+
 .modal-body-content {
     padding: 16px 0;
 }

@@ -22,8 +22,8 @@ const server = {
   reset_day: 15,
   ping_mode: 'tcp'
 };
-const expected = 'collect_interval=1&report_interval=60&reset_day=15&schema_version=7&custom_ct=&custom_cu=&custom_cm=&custom_bd=&interface=&node_1=&node_2=&node_3=&node_4=&connection_mode=http&ping_mode=tcp';
-const expectedWssEnabled = 'collect_interval=1&report_interval=60&reset_day=15&schema_version=7&custom_ct=&custom_cu=&custom_cm=&custom_bd=&interface=&node_1=&node_2=&node_3=&node_4=&connection_mode=auto&wss_report_interval=2&ping_mode=tcp';
+const expected = 'collect_interval=1&report_interval=60&reset_day=15&schema_version=8&custom_ct=&custom_cu=&custom_cm=&custom_bd=&interface=&node_1=&node_2=&node_3=&node_4=&node_5=&connection_mode=http&ping_mode=tcp';
+const expectedWssEnabled = 'collect_interval=1&report_interval=60&reset_day=15&schema_version=8&custom_ct=&custom_cu=&custom_cm=&custom_bd=&interface=&node_1=&node_2=&node_3=&node_4=&node_5=&connection_mode=auto&wss_report_interval=2&ping_mode=tcp';
 const expectedLegacy = 'collect_interval=1&report_interval=60&reset_day=15&schema_version=3&custom_ct=&custom_cu=&custom_cm=&custom_bd=&interface=';
 
 const config = buildAgentConfig(server);
@@ -99,6 +99,7 @@ assert.deepEqual(buildAgentConfig({}), {
   node_2: '',
   node_3: '',
   node_4: '',
+  node_5: '',
   connection_mode: 'http',
   ping_mode: 'tcp'
 });
@@ -229,3 +230,14 @@ assert.deepEqual(validatePingNode('[2001:db8::1]:443'), { valid: true, value: '[
 assert.deepEqual(validatePingNode('2001:db8::1:443'), { valid: true, value: '[2001:db8::1:443]' });
 
 console.log('agent config tests passed');
+
+// The ninth target is negotiated so the six unmodified schema-7 agents retain their wire format.
+const mobileServer = { ...server, node_5: 'gd-cm-v6.ip.zstaticcdn.com:80' };
+const current = await describeAgentConfig(mobileServer, null, 8);
+assert.equal(current.config.node_5, mobileServer.node_5);
+assert.match(current.serialized, /&node_5=gd-cm-v6.ip.zstaticcdn.com:80&/);
+const schema7 = await describeAgentConfig(mobileServer, null, 7);
+assert.equal(Object.hasOwn(schema7.config, 'node_5'), false);
+assert.equal(schema7.serialized, expected.replace('schema_version=8', 'schema_version=7').replace('&node_5=', ''));
+assert.equal(schema7.md5, createHash('md5').update(schema7.serialized).digest('hex'));
+assert.equal(buildAgentConfig({ ...server, node_5: '0' }, { node_5: mobileServer.node_5 }).node_5, '');

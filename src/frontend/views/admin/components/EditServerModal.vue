@@ -215,7 +215,7 @@
         </div>
       </div>
       <div class="form-row">
-        <div v-for="(field, index) in ['node_3', 'node_4']" :key="field" class="form-group flex-1">
+        <div v-for="(field, index) in ['node_3', 'node_4', 'node_5']" :key="field" class="form-group flex-1">
           <label class="form-label">
             {{ settings[`${field}_name`] || `Node ${index + 3}` }}
             <HelpTooltip :text="trans.pingNodeTip" />

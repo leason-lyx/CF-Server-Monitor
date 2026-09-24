@@ -149,6 +149,7 @@ export async function addServerColumns(db) {
       node_2: "TEXT DEFAULT ''",
       node_3: "TEXT DEFAULT ''",
       node_4: "TEXT DEFAULT ''",
+      node_5: "TEXT DEFAULT ''",
       rx_correction: "REAL DEFAULT NULL",
       tx_correction: "REAL DEFAULT NULL",
       traffic_calc_type: "TEXT DEFAULT 'total'",

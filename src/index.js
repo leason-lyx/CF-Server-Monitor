@@ -324,6 +324,7 @@ export default {
           node_2_name: sys.node_2_name || 'Node 2',
           node_3_name: sys.node_3_name || 'Node 3',
           node_4_name: sys.node_4_name || 'Node 4',
+          node_5_name: sys.node_5_name || 'Node 5',
           site_title: appearanceOptions.site_title || '',
           display_mode: appearanceOptions.display_mode || 'bar',
           preferred_theme: appearanceOptions.preferred_theme || 'auto',
