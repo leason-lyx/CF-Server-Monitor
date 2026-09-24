@@ -22,8 +22,8 @@ const server = {
   reset_day: 15,
   ping_mode: 'tcp'
 };
-const expected = 'collect_interval=1&report_interval=60&reset_day=15&schema_version=8&custom_ct=&custom_cu=&custom_cm=&custom_bd=&interface=&node_1=&node_2=&node_3=&node_4=&node_5=&connection_mode=http&ping_mode=tcp';
-const expectedWssEnabled = 'collect_interval=1&report_interval=60&reset_day=15&schema_version=8&custom_ct=&custom_cu=&custom_cm=&custom_bd=&interface=&node_1=&node_2=&node_3=&node_4=&node_5=&connection_mode=auto&wss_report_interval=2&ping_mode=tcp';
+const expected = 'collect_interval=1&report_interval=60&reset_day=15&schema_version=9&custom_ct=&custom_cu=&custom_cm=&custom_bd=&interface=&node_1=&node_2=&node_3=&node_4=&node_5=&node_6=&node_7=&node_8=&connection_mode=http&ping_mode=tcp';
+const expectedWssEnabled = 'collect_interval=1&report_interval=60&reset_day=15&schema_version=9&custom_ct=&custom_cu=&custom_cm=&custom_bd=&interface=&node_1=&node_2=&node_3=&node_4=&node_5=&node_6=&node_7=&node_8=&connection_mode=auto&wss_report_interval=2&ping_mode=tcp';
 const expectedLegacy = 'collect_interval=1&report_interval=60&reset_day=15&schema_version=3&custom_ct=&custom_cu=&custom_cm=&custom_bd=&interface=';
 
 const config = buildAgentConfig(server);
@@ -100,6 +100,9 @@ assert.deepEqual(buildAgentConfig({}), {
   node_3: '',
   node_4: '',
   node_5: '',
+  node_6: '',
+  node_7: '',
+  node_8: '',
   connection_mode: 'http',
   ping_mode: 'tcp'
 });
@@ -238,6 +241,17 @@ assert.equal(current.config.node_5, mobileServer.node_5);
 assert.match(current.serialized, /&node_5=gd-cm-v6.ip.zstaticcdn.com:80&/);
 const schema7 = await describeAgentConfig(mobileServer, null, 7);
 assert.equal(Object.hasOwn(schema7.config, 'node_5'), false);
-assert.equal(schema7.serialized, expected.replace('schema_version=8', 'schema_version=7').replace('&node_5=', ''));
+assert.equal(schema7.serialized, expected.replace('schema_version=9', 'schema_version=7').replace(/&node_[5-8]=/g, ''));
 assert.equal(schema7.md5, createHash('md5').update(schema7.serialized).digest('hex'));
 assert.equal(buildAgentConfig({ ...server, node_5: '0' }, { node_5: mobileServer.node_5 }).node_5, '');
+
+const beijingServer = { ...mobileServer, node_6: 'bj-ct-v6.ip.zstaticcdn.com:80', node_7: 'bj-cu-v6.ip.zstaticcdn.com:80', node_8: 'bj-cm-v6.ip.zstaticcdn.com:80' };
+const beijing = await describeAgentConfig(beijingServer, null, 9);
+for (const k of ['node_6', 'node_7', 'node_8']) {
+  assert.equal(beijing.config[k], beijingServer[k]);
+  assert.equal(buildAgentConfig({ ...server, [k]: '0' }, { [k]: beijingServer[k] })[k], '');
+}
+const schema8 = await describeAgentConfig(beijingServer, null, 8);
+assert.equal(schema8.config.node_5, mobileServer.node_5);
+assert.equal(Object.hasOwn(schema8.config, 'node_6'), false);
+assert.equal(schema8.serialized, current.serialized);

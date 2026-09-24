@@ -57,8 +57,10 @@ function makeSettingsDb(settingsSource) {
   };
 }
 
-function makeDescriptor(md5 = 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', schemaVersion = 8) {
-  const serialized = schemaVersion >= 8
+function makeDescriptor(md5 = 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', schemaVersion = 9) {
+  const serialized = schemaVersion >= 9
+    ? `collect_interval=2&report_interval=60&reset_day=1&schema_version=${schemaVersion}&custom_ct=&custom_cu=&custom_cm=&custom_bd=&interface=&node_1=&node_2=&node_3=&node_4=&node_5=&node_6=&node_7=&node_8=&connection_mode=auto&wss_report_interval=2&ping_mode=tcp`
+    : schemaVersion >= 8
     ? `collect_interval=2&report_interval=60&reset_day=1&schema_version=${schemaVersion}&custom_ct=&custom_cu=&custom_cm=&custom_bd=&interface=&node_1=&node_2=&node_3=&node_4=&node_5=&connection_mode=auto&wss_report_interval=2&ping_mode=tcp`
     : schemaVersion >= 7
     ? `collect_interval=2&report_interval=60&reset_day=1&schema_version=${schemaVersion}&custom_ct=&custom_cu=&custom_cm=&custom_bd=&interface=&node_1=&node_2=&node_3=&node_4=&connection_mode=auto&wss_report_interval=2&ping_mode=tcp`
@@ -96,6 +98,7 @@ function makeDescriptor(md5 = 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', schemaVersion 
     config.node_4 = '';
   }
   if (schemaVersion >= 8) config.node_5 = '';
+  if (schemaVersion >= 9) { config.node_6 = ''; config.node_7 = ''; config.node_8 = ''; }
   return {
     serialized,
     md5,
@@ -510,7 +513,7 @@ test('WSS agent config push uses string body and structured payload', () => {
         kind: 'agent-report',
         authenticated: true,
         serverId: 'server-1',
-        configSchema: '8',
+        configSchema: '9',
         configMd5: 'none'
       };
     },

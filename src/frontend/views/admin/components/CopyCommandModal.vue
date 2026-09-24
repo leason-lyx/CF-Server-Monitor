@@ -125,7 +125,7 @@
           <span class="config-label">{{ settings.custom_bd_name || trans.customBd }}</span>
           <span class="config-value">{{ isBlank(customBd) ? '-' : customBd }}</span>
         </div>
-        <div v-for="(node, index) in [node1, node2, node3, node4, node5]" :key="index" class="config-row">
+        <div v-for="(node, index) in [node1, node2, node3, node4, node5, node6, node7, node8]" :key="index" class="config-row">
           <span class="config-label">{{ settings[`node_${index + 1}_name`] || `Node ${index + 1}` }}</span><span class="config-value">{{ isBlank(node) ? '-' : node }}</span>
         </div>
       </div>
@@ -170,7 +170,7 @@ const props = defineProps({
   customCu: { type: String, default: '' },
   customCm: { type: String, default: '' },
   customBd: { type: String, default: '' },
-  node1: { type: String, default: '' }, node2: { type: String, default: '' }, node3: { type: String, default: '' }, node4: { type: String, default: '' }, node5: { type: String, default: '' },
+  node1: { type: String, default: '' }, node2: { type: String, default: '' }, node3: { type: String, default: '' }, node4: { type: String, default: '' }, node5: { type: String, default: '' }, node6: { type: String, default: '' }, node7: { type: String, default: '' }, node8: { type: String, default: '' },
   networkInterface: { type: String, default: '' },
   resetDay: { type: [Number, String], default: 1 },
   rxCorrection: { type: [Number, String], default: '' },

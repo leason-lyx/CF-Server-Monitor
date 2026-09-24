@@ -225,6 +225,16 @@
         </div>
       </div>
       <div class="form-row">
+        <div v-for="(field, index) in ['node_6', 'node_7', 'node_8']" :key="field" class="form-group flex-1">
+          <label class="form-label">
+            {{ settings[`${field}_name`] || `Node ${index + 6}` }}
+            <HelpTooltip :text="trans.pingNodeTip" />
+          </label>
+          <input type="text" :name="`edit_${field}`" autocomplete="off" v-model.trim="editForm[field]" :class="['form-input', { 'input-invalid': pingNodeErrors[field] }]" :placeholder="settings[field] || 'host[:port] / [IPv6]:port'">
+          <p v-if="pingNodeErrors[field]" class="text-red text-sm mt-1">{{ pingNodeErrors[field] }}</p>
+        </div>
+      </div>
+      <div class="form-row">
         <div class="form-group">
           <div class="checkbox-item no-margin">
             <input type="checkbox" :checked="editForm.auto_update" @change="handleAutoUpdateChange">

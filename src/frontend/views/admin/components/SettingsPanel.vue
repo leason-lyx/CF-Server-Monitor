@@ -827,7 +827,7 @@
           </div>
         </div>
         <div class="ping-node-grid">
-          <div v-for="field in ['node_3', 'node_4', 'node_5']" :key="field" class="ping-node-item">
+          <div v-for="field in ['node_3', 'node_4', 'node_5', 'node_6', 'node_7', 'node_8']" :key="field" class="ping-node-item">
             <div class="ping-node-fields"><input type="text" v-model.trim="settings[`${field}_name`]" class="form-input ping-node-name"><span class="ping-node-arrow">→</span><input type="text" v-model.trim="settings[field]" :class="['form-input', { 'input-invalid': pingNodeErrors[field] }]" placeholder="host[:port] / [IPv6]:port"></div>
             <p v-if="pingNodeErrors[field]" class="text-red text-sm mt-1">{{ pingNodeErrors[field] }}</p>
           </div>

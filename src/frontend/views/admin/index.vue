@@ -277,6 +277,9 @@
         :node-3="node3"
         :node-4="node4"
         :node-5="node5"
+        :node-6="node6"
+        :node-7="node7"
+        :node-8="node8"
         :network-interface="networkInterface"
         :reset-day="resetDay"
         :rx-correction="rxCorrection"
@@ -1045,7 +1048,7 @@ const editForm = ref({
   custom_cu: '',
   custom_cm: '',
   custom_bd: '',
-  node_1: '', node_2: '', node_3: '', node_4: '', node_5: '',
+  node_1: '', node_2: '', node_3: '', node_4: '', node_5: '', node_6: '', node_7: '', node_8: '',
   rx_correction: '',
   tx_correction: '',
   auto_update: false,
@@ -1075,7 +1078,7 @@ const createBatchEditDefaults = () => ({
   custom_cu: '',
   custom_cm: '',
   custom_bd: '',
-  node_1: '', node_2: '', node_3: '', node_4: '', node_5: '',
+  node_1: '', node_2: '', node_3: '', node_4: '', node_5: '', node_6: '', node_7: '', node_8: '',
   rx_correction: '',
   tx_correction: '',
   auto_update: false,
@@ -1139,6 +1142,9 @@ const node2 = ref('')
 const node3 = ref('')
 const node4 = ref('')
 const node5 = ref('')
+const node6 = ref('')
+const node7 = ref('')
+const node8 = ref('')
 const explicitEmptyNodes = ref({})
 const networkInterface = ref('')
 const resetDay = ref(1)
@@ -1167,7 +1173,7 @@ const getPingNodeLabel = (field) => ({
   custom_cu: settings.value.custom_cu_name || trans.value.customCu,
   custom_cm: settings.value.custom_cm_name || trans.value.customCm,
   custom_bd: settings.value.custom_bd_name || trans.value.customBd
-  ,node_1: settings.value.node_1_name || 'Node 1', node_2: settings.value.node_2_name || 'Node 2', node_3: settings.value.node_3_name || 'Node 3', node_4: settings.value.node_4_name || 'Node 4', node_5: settings.value.node_5_name || 'Node 5'
+  ,node_1: settings.value.node_1_name || 'Node 1', node_2: settings.value.node_2_name || 'Node 2', node_3: settings.value.node_3_name || 'Node 3', node_4: settings.value.node_4_name || 'Node 4', node_5: settings.value.node_5_name || 'Node 5', node_6: settings.value.node_6_name || 'Node 6', node_7: settings.value.node_7_name || 'Node 7', node_8: settings.value.node_8_name || 'Node 8'
 })[field] || field
 
 const getPingNodeValidation = (source) => {
@@ -1486,12 +1492,12 @@ const loadSettings = async () => {
         custom_cu: settingsData.custom_cu || '',
         custom_cm: settingsData.custom_cm || '',
         custom_bd: settingsData.custom_bd || '',
-        node_1: settingsData.node_1 || '', node_2: settingsData.node_2 || '', node_3: settingsData.node_3 || '', node_4: settingsData.node_4 || '', node_5: settingsData.node_5 || '',
+        node_1: settingsData.node_1 || '', node_2: settingsData.node_2 || '', node_3: settingsData.node_3 || '', node_4: settingsData.node_4 || '', node_5: settingsData.node_5 || '', node_6: settingsData.node_6 || '', node_7: settingsData.node_7 || '', node_8: settingsData.node_8 || '',
         custom_ct_name: settingsData.custom_ct_name || '电信',
         custom_cu_name: settingsData.custom_cu_name || '联通',
         custom_cm_name: settingsData.custom_cm_name || '移动',
         custom_bd_name: settingsData.custom_bd_name || 'BGP',
-        node_1_name: settingsData.node_1_name || 'Node 1', node_2_name: settingsData.node_2_name || 'Node 2', node_3_name: settingsData.node_3_name || 'Node 3', node_4_name: settingsData.node_4_name || 'Node 4', node_5_name: settingsData.node_5_name || 'Node 5',
+        node_1_name: settingsData.node_1_name || 'Node 1', node_2_name: settingsData.node_2_name || 'Node 2', node_3_name: settingsData.node_3_name || 'Node 3', node_4_name: settingsData.node_4_name || 'Node 4', node_5_name: settingsData.node_5_name || 'Node 5', node_6_name: settingsData.node_6_name || 'Node 6', node_7_name: settingsData.node_7_name || 'Node 7', node_8_name: settingsData.node_8_name || 'Node 8',
         theme_url: settingsData.theme_url || '',
         csp_static: settingsData.csp_static || '',
         csp_api: settingsData.csp_api || ''
@@ -1691,12 +1697,12 @@ const saveSettings = async () => {
       custom_cu: pingNodeValidation.values.custom_cu,
       custom_cm: pingNodeValidation.values.custom_cm,
       custom_bd: pingNodeValidation.values.custom_bd,
-      node_1: pingNodeValidation.values.node_1, node_2: pingNodeValidation.values.node_2, node_3: pingNodeValidation.values.node_3, node_4: pingNodeValidation.values.node_4, node_5: pingNodeValidation.values.node_5,
+      node_1: pingNodeValidation.values.node_1, node_2: pingNodeValidation.values.node_2, node_3: pingNodeValidation.values.node_3, node_4: pingNodeValidation.values.node_4, node_5: pingNodeValidation.values.node_5, node_6: pingNodeValidation.values.node_6, node_7: pingNodeValidation.values.node_7, node_8: pingNodeValidation.values.node_8,
       custom_ct_name: settings.value.custom_ct_name.trim(),
       custom_cu_name: settings.value.custom_cu_name.trim(),
       custom_cm_name: settings.value.custom_cm_name.trim(),
       custom_bd_name: settings.value.custom_bd_name.trim(),
-      node_1_name: settings.value.node_1_name.trim(), node_2_name: settings.value.node_2_name.trim(), node_3_name: settings.value.node_3_name.trim(), node_4_name: settings.value.node_4_name.trim(), node_5_name: settings.value.node_5_name.trim(),
+      node_1_name: settings.value.node_1_name.trim(), node_2_name: settings.value.node_2_name.trim(), node_3_name: settings.value.node_3_name.trim(), node_4_name: settings.value.node_4_name.trim(), node_5_name: settings.value.node_5_name.trim(), node_6_name: settings.value.node_6_name.trim(), node_7_name: settings.value.node_7_name.trim(), node_8_name: settings.value.node_8_name.trim(),
       csp_static: settings.value.csp_static || '',
       csp_api: settings.value.csp_api || ''
     }
@@ -1863,11 +1869,14 @@ const copyCmd = (serverId) => {
   const node3Value = resolveServerPingNode(server, 'node_3')
   const node4Value = resolveServerPingNode(server, 'node_4')
   const node5Value = resolveServerPingNode(server, 'node_5')
+  const node6Value = resolveServerPingNode(server, 'node_6')
+  const node7Value = resolveServerPingNode(server, 'node_7')
+  const node8Value = resolveServerPingNode(server, 'node_8')
   explicitEmptyNodes.value = {
     custom_ct: customCtNode.explicitEmpty, custom_cu: customCuNode.explicitEmpty,
     custom_cm: customCmNode.explicitEmpty, custom_bd: customBdNode.explicitEmpty,
     node_1: node1Value.explicitEmpty, node_2: node2Value.explicitEmpty,
-    node_3: node3Value.explicitEmpty, node_4: node4Value.explicitEmpty, node_5: node5Value.explicitEmpty
+    node_3: node3Value.explicitEmpty, node_4: node4Value.explicitEmpty, node_5: node5Value.explicitEmpty, node_6: node6Value.explicitEmpty, node_7: node7Value.explicitEmpty, node_8: node8Value.explicitEmpty
   }
   customCt.value = customCtNode.value
   customCu.value = customCuNode.value
@@ -1878,6 +1887,9 @@ const copyCmd = (serverId) => {
   node3.value = node3Value.value
   node4.value = node4Value.value
   node5.value = node5Value.value
+  node6.value = node6Value.value
+  node7.value = node7Value.value
+  node8.value = node8Value.value
   networkInterface.value = server?.interface || ''
   resetDay.value = server?.reset_day ?? 1
   rxCorrection.value = server?.rx_correction ?? ''
@@ -2087,7 +2099,7 @@ const createEditFormFromServer = (server) => ({
     custom_cu: server.custom_cu ?? '',
     custom_cm: server.custom_cm ?? '',
     custom_bd: server.custom_bd ?? '',
-    node_1: server.node_1 ?? '', node_2: server.node_2 ?? '', node_3: server.node_3 ?? '', node_4: server.node_4 ?? '', node_5: server.node_5 ?? '',
+    node_1: server.node_1 ?? '', node_2: server.node_2 ?? '', node_3: server.node_3 ?? '', node_4: server.node_4 ?? '', node_5: server.node_5 ?? '', node_6: server.node_6 ?? '', node_7: server.node_7 ?? '', node_8: server.node_8 ?? '',
     rx_correction: server.rx_correction ?? '',
     tx_correction: server.tx_correction ?? '',
     auto_update: server.auto_update === '1' || server.auto_update === 1 || server.auto_update === true,
@@ -2172,7 +2184,7 @@ const buildEditPayloadFromForm = (form) => {
       custom_cu: pingNodeValidation.values.custom_cu,
       custom_cm: pingNodeValidation.values.custom_cm,
       custom_bd: pingNodeValidation.values.custom_bd,
-      node_1: pingNodeValidation.values.node_1, node_2: pingNodeValidation.values.node_2, node_3: pingNodeValidation.values.node_3, node_4: pingNodeValidation.values.node_4, node_5: pingNodeValidation.values.node_5,
+      node_1: pingNodeValidation.values.node_1, node_2: pingNodeValidation.values.node_2, node_3: pingNodeValidation.values.node_3, node_4: pingNodeValidation.values.node_4, node_5: pingNodeValidation.values.node_5, node_6: pingNodeValidation.values.node_6, node_7: pingNodeValidation.values.node_7, node_8: pingNodeValidation.values.node_8,
       rx_correction: form.rx_correction,
       tx_correction: form.tx_correction,
       auto_update: form.auto_update ? '1' : '0',
@@ -2238,7 +2250,7 @@ const saveEdit = async () => {
     custom_cu: pingNodeValidation.values.custom_cu,
     custom_cm: pingNodeValidation.values.custom_cm,
     custom_bd: pingNodeValidation.values.custom_bd,
-    node_1: pingNodeValidation.values.node_1, node_2: pingNodeValidation.values.node_2, node_3: pingNodeValidation.values.node_3, node_4: pingNodeValidation.values.node_4, node_5: pingNodeValidation.values.node_5,
+    node_1: pingNodeValidation.values.node_1, node_2: pingNodeValidation.values.node_2, node_3: pingNodeValidation.values.node_3, node_4: pingNodeValidation.values.node_4, node_5: pingNodeValidation.values.node_5, node_6: pingNodeValidation.values.node_6, node_7: pingNodeValidation.values.node_7, node_8: pingNodeValidation.values.node_8,
     rx_correction: editForm.value.rx_correction,
     tx_correction: editForm.value.tx_correction,
     auto_update: editForm.value.auto_update ? '1' : '0',

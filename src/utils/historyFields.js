@@ -1,6 +1,6 @@
 export const PROBE_METRIC_FIELDS = Object.freeze([
-  'ping_ct', 'ping_cu', 'ping_cm', 'ping_bd', 'ping_node_1', 'ping_node_2', 'ping_node_3', 'ping_node_4', 'ping_node_5',
-  'loss_ct', 'loss_cu', 'loss_cm', 'loss_bd', 'loss_node_1', 'loss_node_2', 'loss_node_3', 'loss_node_4', 'loss_node_5'
+  'ping_ct', 'ping_cu', 'ping_cm', 'ping_bd', 'ping_node_1', 'ping_node_2', 'ping_node_3', 'ping_node_4', 'ping_node_5', 'ping_node_6', 'ping_node_7', 'ping_node_8',
+  'loss_ct', 'loss_cu', 'loss_cm', 'loss_bd', 'loss_node_1', 'loss_node_2', 'loss_node_3', 'loss_node_4', 'loss_node_5', 'loss_node_6', 'loss_node_7', 'loss_node_8'
 ]);
 
 export const NUMERIC_METRIC_FIELDS = Object.freeze([
@@ -34,12 +34,12 @@ export const HISTORY_ALL_QUERY_COLUMNS = Object.freeze([
   'ping_cu',
   'ping_cm',
   'ping_bd',
-  'ping_node_1', 'ping_node_2', 'ping_node_3', 'ping_node_4', 'ping_node_5',
+  'ping_node_1', 'ping_node_2', 'ping_node_3', 'ping_node_4', 'ping_node_5', 'ping_node_6', 'ping_node_7', 'ping_node_8',
   'loss_ct',
   'loss_cu',
   'loss_cm',
   'loss_bd',
-  'loss_node_1', 'loss_node_2', 'loss_node_3', 'loss_node_4', 'loss_node_5',
+  'loss_node_1', 'loss_node_2', 'loss_node_3', 'loss_node_4', 'loss_node_5', 'loss_node_6', 'loss_node_7', 'loss_node_8',
   'swap_total',
   'swap_used',
   'load_avg',
@@ -107,7 +107,10 @@ export const HISTORY_TABLE_COLUMNS = Object.freeze([
   ['ping_node_2', 'INTEGER DEFAULT 0'],
   ['ping_node_3', 'INTEGER DEFAULT 0'],
   ['ping_node_4', 'INTEGER DEFAULT 0'],
-  ['ping_node_5', 'INTEGER DEFAULT 0'],
+  ['ping_node_5', 'INTEGER DEFAULT NULL'],
+  ['ping_node_6', 'INTEGER DEFAULT NULL'],
+  ['ping_node_7', 'INTEGER DEFAULT NULL'],
+  ['ping_node_8', 'INTEGER DEFAULT NULL'],
   ['loss_ct', 'INTEGER DEFAULT NULL'],
   ['loss_cu', 'INTEGER DEFAULT NULL'],
   ['loss_cm', 'INTEGER DEFAULT NULL'],
@@ -117,6 +120,9 @@ export const HISTORY_TABLE_COLUMNS = Object.freeze([
   ['loss_node_3', 'INTEGER DEFAULT NULL'],
   ['loss_node_4', 'INTEGER DEFAULT NULL'],
   ['loss_node_5', 'INTEGER DEFAULT NULL'],
+  ['loss_node_6', 'INTEGER DEFAULT NULL'],
+  ['loss_node_7', 'INTEGER DEFAULT NULL'],
+  ['loss_node_8', 'INTEGER DEFAULT NULL'],
   ['ram_total', 'REAL DEFAULT 0'],
   ['ram_used', 'REAL DEFAULT 0'],
   ['swap_total', 'REAL DEFAULT 0'],

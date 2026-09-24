@@ -1,7 +1,7 @@
 import { md5Hash } from './common.js';
 import { isWssReportConfigured } from './settings.js';
 
-export const AGENT_CONFIG_SCHEMA_VERSION = 8;
+export const AGENT_CONFIG_SCHEMA_VERSION = 9;
 export const AGENT_CONFIG_LEGACY_SCHEMA_VERSION = 3;
 export const AGENT_CONFIG_CONNECTION_MODE_SCHEMA_VERSION = 4;
 export const AGENT_CONFIG_WSS_REPORT_INTERVAL_SCHEMA_VERSION = 5;
@@ -296,6 +296,9 @@ export function buildAgentConfig(server, settings = null, schemaVersion = AGENT_
   const node3 = resolveNode('node_3');
   const node4 = resolveNode('node_4');
   const node5 = resolveNode('node_5');
+  const node6 = resolveNode('node_6');
+  const node7 = resolveNode('node_7');
+  const node8 = resolveNode('node_8');
   const networkInterface = sanitizeNetworkInterfaces(server?.interface || '');
 
   const config = {
@@ -318,6 +321,11 @@ export function buildAgentConfig(server, settings = null, schemaVersion = AGENT_
   }
 
   if (version >= 8) config.node_5 = node5;
+  if (version >= 9) {
+    config.node_6 = node6;
+    config.node_7 = node7;
+    config.node_8 = node8;
+  }
 
   if (version >= AGENT_CONFIG_CONNECTION_MODE_SCHEMA_VERSION) {
     const connectionMode = normalizeConnectionMode(server?.connection_mode) || CONNECTION_MODE_AUTO;
@@ -360,6 +368,11 @@ export function serializeAgentConfig(config) {
   }
   if (Object.prototype.hasOwnProperty.call(config, 'node_5')) {
     serialized += `&node_5=${config.node_5}`;
+  }
+  if (Object.prototype.hasOwnProperty.call(config, 'node_6')) {
+    serialized += `&node_6=${config.node_6}`;
+    serialized += `&node_7=${config.node_7}`;
+    serialized += `&node_8=${config.node_8}`;
   }
   if (Object.prototype.hasOwnProperty.call(config, 'connection_mode')) {
     serialized += `&connection_mode=${config.connection_mode}`;

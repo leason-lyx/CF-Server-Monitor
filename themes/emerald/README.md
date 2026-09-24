@@ -1,10 +1,10 @@
-# Emerald with ninth probe support
+# Emerald with twelve probe support
 
 Built from Tokinx/cf-server-monitor-theme-emerald v1.2.5, source commit
 `d09f6573a471af601aab5cc0644486ae82d41bc6`, plus `source.patch`.
 
 Validation: `bun install --frozen-lockfile`, `bun run lint`, `bun run build`.
-The patch adds `node_5` to the existing API adapter and realtime chart mapping.
+The patch adds `node_5` through `node_8` to the existing API adapter and realtime chart mapping.
 The previous production theme was build commit
 `f0f67949604e10c03a0060d2c80d52487fa384ee` of the same v1.2.5 release.
 
