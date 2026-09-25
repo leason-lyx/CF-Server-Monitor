@@ -190,18 +190,10 @@ export function mergeMetricsIntoServer(server, metrics) {
   server.ping_node_2 = normalizeProbeMetric(metrics.ping_node_2);
   server.ping_node_3 = normalizeProbeMetric(metrics.ping_node_3);
   server.ping_node_4 = normalizeProbeMetric(metrics.ping_node_4);
-  server.ping_node_5 = normalizeProbeMetric(metrics.ping_node_5 === undefined ? false : metrics.ping_node_5);
-  server.ping_node_6 = normalizeProbeMetric(metrics.ping_node_6 === undefined ? false : metrics.ping_node_6);
-  server.ping_node_7 = normalizeProbeMetric(metrics.ping_node_7 === undefined ? false : metrics.ping_node_7);
-  server.ping_node_8 = normalizeProbeMetric(metrics.ping_node_8 === undefined ? false : metrics.ping_node_8);
   server.loss_node_1 = normalizeProbeMetric(metrics.loss_node_1);
   server.loss_node_2 = normalizeProbeMetric(metrics.loss_node_2);
   server.loss_node_3 = normalizeProbeMetric(metrics.loss_node_3);
   server.loss_node_4 = normalizeProbeMetric(metrics.loss_node_4);
-  server.loss_node_5 = normalizeProbeMetric(metrics.loss_node_5 === undefined ? false : metrics.loss_node_5);
-  server.loss_node_6 = normalizeProbeMetric(metrics.loss_node_6 === undefined ? false : metrics.loss_node_6);
-  server.loss_node_7 = normalizeProbeMetric(metrics.loss_node_7 === undefined ? false : metrics.loss_node_7);
-  server.loss_node_8 = normalizeProbeMetric(metrics.loss_node_8 === undefined ? false : metrics.loss_node_8);
   server.ram_total = metrics.ram_total || 0;
   server.ram_used = metrics.ram_used || 0;
   server.swap_total = metrics.swap_total || 0;

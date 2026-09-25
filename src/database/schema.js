@@ -21,9 +21,9 @@ import {
 
 let dbInitialized = false;
 
-const LOSS_AGG_COLUMNS = new Set(['loss_ct', 'loss_cu', 'loss_cm', 'loss_bd', 'loss_node_1', 'loss_node_2', 'loss_node_3', 'loss_node_4', 'loss_node_5', 'loss_node_6', 'loss_node_7', 'loss_node_8']);
+const LOSS_AGG_COLUMNS = new Set(['loss_ct', 'loss_cu', 'loss_cm', 'loss_bd', 'loss_node_1', 'loss_node_2', 'loss_node_3', 'loss_node_4']);
 const DEFAULT_HISTORY_MAX_POINTS = 160;
-const LATENCY_NODE_FIELDS = ['ct', 'cu', 'cm', 'bd', 'node_1', 'node_2', 'node_3', 'node_4', 'node_5', 'node_6', 'node_7', 'node_8'];
+const LATENCY_NODE_FIELDS = ['ct', 'cu', 'cm', 'bd', 'node_1', 'node_2', 'node_3', 'node_4'];
 const DASHBOARD_LATENCY_COLUMNS = LATENCY_NODE_FIELDS
   .flatMap(field => [`ping_${field}`, `loss_${field}`]);
 const LEGACY_DASHBOARD_LATENCY_COLUMNS = ['ct', 'cu', 'cm', 'bd']
@@ -88,6 +88,8 @@ export async function initDatabase(db) {
           expire_date TEXT DEFAULT '',
           traffic_limit TEXT DEFAULT '',
           traffic_calc_type TEXT DEFAULT 'total',
+          traffic_alert_percent INTEGER DEFAULT NULL,
+          traffic_alert_state TEXT,
           "interface" TEXT DEFAULT '',
           reset_day INTEGER DEFAULT 1,
           collect_interval INTEGER DEFAULT 0,
@@ -104,10 +106,6 @@ export async function initDatabase(db) {
           node_2 TEXT DEFAULT '',
           node_3 TEXT DEFAULT '',
           node_4 TEXT DEFAULT '',
-          node_5 TEXT DEFAULT '',
-          node_6 TEXT DEFAULT '',
-          node_7 TEXT DEFAULT '',
-          node_8 TEXT DEFAULT '',
           rx_correction REAL DEFAULT NULL,
           tx_correction REAL DEFAULT NULL,
           offline_notify_disabled TEXT DEFAULT '0',
@@ -676,10 +674,6 @@ export async function saveMetricsHistory(db, serverId, historyPartitionId, metri
     parsePing(metrics.ping_node_2),
     parsePing(metrics.ping_node_3),
     parsePing(metrics.ping_node_4),
-    parsePing(metrics.ping_node_5 === undefined ? false : metrics.ping_node_5),
-    parsePing(metrics.ping_node_6 === undefined ? false : metrics.ping_node_6),
-    parsePing(metrics.ping_node_7 === undefined ? false : metrics.ping_node_7),
-    parsePing(metrics.ping_node_8 === undefined ? false : metrics.ping_node_8),
     parseLoss(metrics.loss_ct),
     parseLoss(metrics.loss_cu),
     parseLoss(metrics.loss_cm),
@@ -688,10 +682,6 @@ export async function saveMetricsHistory(db, serverId, historyPartitionId, metri
     parseLoss(metrics.loss_node_2),
     parseLoss(metrics.loss_node_3),
     parseLoss(metrics.loss_node_4),
-    parseLoss(metrics.loss_node_5 === undefined ? false : metrics.loss_node_5),
-    parseLoss(metrics.loss_node_6 === undefined ? false : metrics.loss_node_6),
-    parseLoss(metrics.loss_node_7 === undefined ? false : metrics.loss_node_7),
-    parseLoss(metrics.loss_node_8 === undefined ? false : metrics.loss_node_8),
     parseFloat(metrics.ram_total) || 0,
     parseFloat(metrics.ram_used) || 0,
     parseFloat(metrics.swap_total) || 0,

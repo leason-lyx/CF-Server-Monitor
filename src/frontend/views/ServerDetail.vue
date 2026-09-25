@@ -500,11 +500,7 @@ const PING_FIELD_DEFS = [
   { field: 'ping_node_1', lossField: 'loss_node_1', labelKey: 'node1', className: 'ping-node-1', datasetIndex: 4 },
   { field: 'ping_node_2', lossField: 'loss_node_2', labelKey: 'node2', className: 'ping-node-2', datasetIndex: 5 },
   { field: 'ping_node_3', lossField: 'loss_node_3', labelKey: 'node3', className: 'ping-node-3', datasetIndex: 6 },
-  { field: 'ping_node_4', lossField: 'loss_node_4', labelKey: 'node4', className: 'ping-node-4', datasetIndex: 7 },
-  { field: 'ping_node_5', lossField: 'loss_node_5', labelKey: 'node5', className: 'ping-node-5', datasetIndex: 8 },
-  { field: 'ping_node_6', lossField: 'loss_node_6', labelKey: 'node6', className: 'ping-node-6', datasetIndex: 9 },
-  { field: 'ping_node_7', lossField: 'loss_node_7', labelKey: 'node7', className: 'ping-node-7', datasetIndex: 10 },
-  { field: 'ping_node_8', lossField: 'loss_node_8', labelKey: 'node8', className: 'ping-node-8', datasetIndex: 11 },
+  { field: 'ping_node_4', lossField: 'loss_node_4', labelKey: 'node4', className: 'ping-node-4', datasetIndex: 7 }
 ]
 const pingLabel = (key) => String(appConfig?.[key.startsWith('node_') ? `${key}_name` : `custom_${key}_name`] || trans.value[`ping${key.toUpperCase().charAt(0)}${key.slice(1)}`] || key.toUpperCase())
 
@@ -704,10 +700,6 @@ const avgPingNode1 = ref(null)
 const avgPingNode2 = ref(null)
 const avgPingNode3 = ref(null)
 const avgPingNode4 = ref(null)
-const avgPingNode5 = ref(null)
-const avgPingNode6 = ref(null)
-const avgPingNode7 = ref(null)
-const avgPingNode8 = ref(null)
 const avgLossCt = ref(null)
 const avgLossCu = ref(null)
 const avgLossCm = ref(null)
@@ -716,10 +708,6 @@ const avgLossNode1 = ref(null)
 const avgLossNode2 = ref(null)
 const avgLossNode3 = ref(null)
 const avgLossNode4 = ref(null)
-const avgLossNode5 = ref(null)
-const avgLossNode6 = ref(null)
-const avgLossNode7 = ref(null)
-const avgLossNode8 = ref(null)
 let isInitializingCharts = false
 let databaseUpgradeAlertShown = false
 let lastReportChartUpdateTime = 0
@@ -769,11 +757,7 @@ const avgPingRefs = {
   ping_node_1: avgPingNode1,
   ping_node_2: avgPingNode2,
   ping_node_3: avgPingNode3,
-  ping_node_4: avgPingNode4,
-  ping_node_5: avgPingNode5,
-  ping_node_6: avgPingNode6,
-  ping_node_7: avgPingNode7,
-  ping_node_8: avgPingNode8,
+  ping_node_4: avgPingNode4
 }
 
 const avgLossRefs = {
@@ -784,11 +768,7 @@ const avgLossRefs = {
   loss_node_1: avgLossNode1,
   loss_node_2: avgLossNode2,
   loss_node_3: avgLossNode3,
-  loss_node_4: avgLossNode4,
-  loss_node_5: avgLossNode5,
-  loss_node_6: avgLossNode6,
-  loss_node_7: avgLossNode7,
-  loss_node_8: avgLossNode8,
+  loss_node_4: avgLossNode4
 }
 
 const visiblePingFields = computed(() => PING_FIELD_DEFS.filter(item => {
@@ -993,8 +973,8 @@ const CHART_DEFS = [
   { key: 'proc', ref: () => procChartRef.value, datasets: [ds('Processes', '#f778ba', { fill: true })] },
   { key: 'net', ref: () => netChartRef.value, datasets: [ds('Download', '#00d4aa', { fill: true }), ds('Upload', '#4da6ff', { fill: true })], legend: true, formatValue: (v) => formatBytes(v) + '/s', tickFormat: (v) => formatBytes(v) },
   { key: 'conn', ref: () => connChartRef.value, datasets: [ds('TCP', '#b392f0'), ds('UDP', '#f778ba')], legend: true },
-  { key: 'ping', ref: () => pingChartRef.value, datasets: ['ct', 'cu', 'cm', 'bd', 'node_1', 'node_2', 'node_3', 'node_4', 'node_5', 'node_6', 'node_7', 'node_8'].map((key, i) => ds(pingLabel(key), ['#00d4aa', '#ffb870', '#4da6ff', '#b392f0', '#ff7b72', '#79c0ff', '#7ee787', '#ffa657', '#f778ba', '#56d4dd', '#d2a8ff', '#e3b341'][i], { tension: 0.3 })), unit: ' ms', legend: true },
-  { key: 'loss', ref: () => lossChartRef.value, datasets: ['ct', 'cu', 'cm', 'bd', 'node_1', 'node_2', 'node_3', 'node_4', 'node_5', 'node_6', 'node_7', 'node_8'].map((key, i) => ds(pingLabel(key), ['#00d4aa', '#ffb870', '#4da6ff', '#b392f0', '#ff7b72', '#79c0ff', '#7ee787', '#ffa657', '#f778ba', '#56d4dd', '#d2a8ff', '#e3b341'][i], { tension: 0.3 })), unit: '%', legend: true },
+  { key: 'ping', ref: () => pingChartRef.value, datasets: ['ct', 'cu', 'cm', 'bd', 'node_1', 'node_2', 'node_3', 'node_4'].map((key, i) => ds(pingLabel(key), ['#00d4aa', '#ffb870', '#4da6ff', '#b392f0', '#ff7b72', '#79c0ff', '#7ee787', '#ffa657'][i], { tension: 0.3 })), unit: ' ms', legend: true },
+  { key: 'loss', ref: () => lossChartRef.value, datasets: ['ct', 'cu', 'cm', 'bd', 'node_1', 'node_2', 'node_3', 'node_4'].map((key, i) => ds(pingLabel(key), ['#00d4aa', '#ffb870', '#4da6ff', '#b392f0', '#ff7b72', '#79c0ff', '#7ee787', '#ffa657'][i], { tension: 0.3 })), unit: '%', legend: true },
   { key: 'load', ref: () => loadChartRef.value, datasets: [ds(trans.value.load1m || '1 Min', '#00d4aa', { tension: 0.3 }), ds(trans.value.load5m || '5 Min', '#ffb870', { tension: 0.3 }), ds(trans.value.load15m || '15 Min', '#4da6ff', { tension: 0.3 })], legend: true }
 ]
 
@@ -1434,10 +1414,6 @@ const loadAllHistory = async (hours) => {
       updateChartDataset(charts.ping, 5, allData, fieldAccessor('ping_node_2', true))
       updateChartDataset(charts.ping, 6, allData, fieldAccessor('ping_node_3', true))
       updateChartDataset(charts.ping, 7, allData, fieldAccessor('ping_node_4', true))
-      updateChartDataset(charts.ping, 8, allData, fieldAccessor('ping_node_5', true))
-      updateChartDataset(charts.ping, 9, allData, fieldAccessor('ping_node_6', true))
-      updateChartDataset(charts.ping, 10, allData, fieldAccessor('ping_node_7', true))
-      updateChartDataset(charts.ping, 11, allData, fieldAccessor('ping_node_8', true))
       updateChartDataset(charts.loss, 0, allData, fieldAccessor('loss_ct', true))
       updateChartDataset(charts.loss, 1, allData, fieldAccessor('loss_cu', true))
       updateChartDataset(charts.loss, 2, allData, fieldAccessor('loss_cm', true))
@@ -1446,10 +1422,6 @@ const loadAllHistory = async (hours) => {
       updateChartDataset(charts.loss, 5, allData, fieldAccessor('loss_node_2', true))
       updateChartDataset(charts.loss, 6, allData, fieldAccessor('loss_node_3', true))
       updateChartDataset(charts.loss, 7, allData, fieldAccessor('loss_node_4', true))
-      updateChartDataset(charts.loss, 8, allData, fieldAccessor('loss_node_5', true))
-      updateChartDataset(charts.loss, 9, allData, fieldAccessor('loss_node_6', true))
-      updateChartDataset(charts.loss, 10, allData, fieldAccessor('loss_node_7', true))
-      updateChartDataset(charts.loss, 11, allData, fieldAccessor('loss_node_8', true))
       updateLoadChart(charts.load, allData)
 
       const avg = (arr, field, skipZero = true) => {
@@ -1464,10 +1436,6 @@ const loadAllHistory = async (hours) => {
       avgPingNode2.value = avg(allData, 'ping_node_2')
       avgPingNode3.value = avg(allData, 'ping_node_3')
       avgPingNode4.value = avg(allData, 'ping_node_4')
-      avgPingNode5.value = avg(allData, 'ping_node_5')
-      avgPingNode6.value = avg(allData, 'ping_node_6')
-      avgPingNode7.value = avg(allData, 'ping_node_7')
-      avgPingNode8.value = avg(allData, 'ping_node_8')
       avgLossCt.value = avg(allData, 'loss_ct', false)
       avgLossCu.value = avg(allData, 'loss_cu', false)
       avgLossCm.value = avg(allData, 'loss_cm', false)
@@ -1476,10 +1444,6 @@ const loadAllHistory = async (hours) => {
       avgLossNode2.value = avg(allData, 'loss_node_2', false)
       avgLossNode3.value = avg(allData, 'loss_node_3', false)
       avgLossNode4.value = avg(allData, 'loss_node_4', false)
-      avgLossNode5.value = avg(allData, 'loss_node_5', false)
-      avgLossNode6.value = avg(allData, 'loss_node_6', false)
-      avgLossNode7.value = avg(allData, 'loss_node_7', false)
-      avgLossNode8.value = avg(allData, 'loss_node_8', false)
       syncProbeChartVisibility()
     }
 

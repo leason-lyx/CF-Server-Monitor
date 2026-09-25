@@ -65,6 +65,9 @@
               <option v-for="day in 31" :key="day" :value="day">{{ day }}</option>
             </select>
           </BatchEditField>
+          <BatchEditField :enabled="enabled.traffic_alert_percent" :label="`${trans.trafficAlertPercent} (%)`" @toggle="toggleField('traffic_alert_percent', $event)">
+            <input type="number" v-model="form.traffic_alert_percent" class="form-input" :disabled="!enabled.traffic_alert_percent" min="0" max="100" step="1">
+          </BatchEditField>
           <BatchEditField :enabled="enabled.rx_correction" :label="`${trans.rxCorrection} (GB)`" @toggle="toggleField('rx_correction', $event)">
             <input type="number" v-model="form.rx_correction" class="form-input" :disabled="!enabled.rx_correction" min="0" step="0.1">
           </BatchEditField>
@@ -128,7 +131,7 @@
           <BatchEditField :enabled="enabled.custom_bd" :label="settings.custom_bd_name || trans.customBd" @toggle="toggleField('custom_bd', $event)">
             <input type="text" v-model.trim="form.custom_bd" class="form-input" :disabled="!enabled.custom_bd" :placeholder="settings.custom_bd || 'ip.zstaticcdn.com'">
           </BatchEditField>
-          <BatchEditField v-for="(field, index) in ['node_1', 'node_2', 'node_3', 'node_4', 'node_5', 'node_6', 'node_7', 'node_8']" :key="field" :enabled="enabled[field]" :label="settings[`${field}_name`] || `Node ${index + 1}`" @toggle="toggleField(field, $event)">
+          <BatchEditField v-for="(field, index) in ['node_1', 'node_2', 'node_3', 'node_4']" :key="field" :enabled="enabled[field]" :label="settings[`${field}_name`] || `Node ${index + 1}`" @toggle="toggleField(field, $event)">
             <input type="text" v-model.trim="form[field]" class="form-input" :disabled="!enabled[field]" :placeholder="settings[field] || 'host[:port] / [IPv6]:port'">
           </BatchEditField>
         </div>

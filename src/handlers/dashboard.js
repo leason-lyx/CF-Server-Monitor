@@ -16,7 +16,7 @@ import {
   DASHBOARD_LATEST_REPORT_ID_CHUNK_SIZE
 } from '../utils/config.js';
 
-const PROBE_FIELDS = ['ct', 'cu', 'cm', 'bd', 'node_1', 'node_2', 'node_3', 'node_4', 'node_5', 'node_6', 'node_7', 'node_8'];
+const PROBE_FIELDS = ['ct', 'cu', 'cm', 'bd', 'node_1', 'node_2', 'node_3', 'node_4'];
 
 // REST 接口中，丢包值为 null 表示该探针没有可用样本；此时隐藏对应的延迟和丢包字段。
 export function omitNullLossProbeFields(item) {
